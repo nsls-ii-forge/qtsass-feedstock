@@ -1,0 +1,41 @@
+{% set name = "qtsass" %}
+{% set version = "0.3.0" %}
+{% set hash = "27c49f63cea9e23a0b9618f71f4a4e992833cd1cfdf78ed832c69ceea1de1fe7" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ hash }}
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  noarch: python
+  entry_points:
+    - qtsass = qtsass.cli:main
+
+requirements:
+  host:
+    - python >=3
+    - pip
+  run:
+    - python >=3
+    - libsass
+    - watchdog
+
+test:
+  imports:
+    - qtsass
+
+about:
+  home: http://github.com/spyder-ide/qtsass
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: Compile SCSS files to valid Qt stylesheets
+  description: |
+    Compile SCSS files to valid Qt stylesheets
+  dev_url: http://github.com/spyder-ide/qtsass
